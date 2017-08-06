@@ -1,0 +1,29 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.jumbotron {
+	padding-top: 0px;
+	background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05) ), url(view.jpg);
+	background-size: cover;
+	background-position: 50% 50%;
+	height: 420px;
+}
+
+.navbar-default {
+	background: transparent;
+	border-color: transparent;
+	z-index: 10;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: white;
+	font-size: 13px;
+}
+
+.navbar-default .navbar-brand {
+	color: white;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #fff;
+}
