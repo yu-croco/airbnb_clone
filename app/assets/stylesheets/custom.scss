@@ -3,7 +3,7 @@
 
 .jumbotron {
 	padding-top: 0px;
-	background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05) ), url(view.jpg);
+	background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05) ), image-url("view.jpg");
 	background-size: cover;
 	background-position: 50% 50%;
 	height: 420px;
