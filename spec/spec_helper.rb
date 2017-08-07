@@ -17,6 +17,7 @@ end
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-	# Mix in different behaviours to your tests based on their file location
 	config.infer_spec_type_from_file_location!
+	config.include Rails.application.routes.url_helpers
+	config.include Capybara::DSL
 end
