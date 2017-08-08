@@ -39,6 +39,8 @@ group :test do
 	gem 'poltergeist'
 	gem 'rspec-rails'
 	gem 'shoulda-matchers'
+	gem 'faker'
+	gem 'rails-controller-testing'
 end
 
 group :production do
