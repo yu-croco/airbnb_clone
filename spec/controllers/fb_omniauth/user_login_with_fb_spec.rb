@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'user log in with fb omniauth' do
+describe 'can log in with fb omniauth' do
 	let(:user) { User.create(name: 'hoge', email: 'hoge@hoge.com') }
 
 	before do
