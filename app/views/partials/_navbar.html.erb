@@ -12,34 +12,35 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		<ul class="nav navbar-nav navbar-right">
-			<% if (!user_signed_in?) %>
-			<!-- not logged in -->
-				<li><a href="#">ホストになる</a></li>
+			<ul class="nav navbar-nav navbar-right">
+				<% if (!user_signed_in?) %>
+				<!-- not logged in -->
 				<li><a href="#">ヘルプ</a></li>
+				<li><%= link_to "ホストになる", new_listing_path %></li>
 				<li><%= link_to "アカウント作成", new_user_registration_path %></li>
 				<li><%= link_to "ログイン", new_user_session_path %></li>
-			<% else %>
-				<!-- logged in -->
-	          <li class="dropdown">
-	            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-				<% if current_user.provider %>
-					<!-- facebook login -->
-					<%= image_tag current_user.image, class: "img-circle profile-0" %>
-					<%= current_user.email %>
 				<% else %>
-					<%= current_user.email %>
+					<!-- logged in -->
+				<li><%= link_to "ホストになる", new_listing_path %></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<% if current_user.provider %>
+						<!-- facebook login -->
+						<%= image_tag current_user.image, class: "img-circle profile-0" %>
+						<%= current_user.email %>
+					<% else %>
+						<%= current_user.email %>
+					<% end %>
+					<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+					  <li><%= link_to "プロフィール", user_path(current_user), id: "profile" %></li>
+					  <li><%= link_to "プロフィール編集", edit_user_registration_path, id: "profile_edit" %></li>
+					  <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+					</ul>
+				  </li>
 				<% end %>
-				<span class="caret"></span>
-	            </a>
-	            <ul class="dropdown-menu">
-	              <li><%= link_to "プロフィール", user_path(current_user), id: "profile" %></li>
-	              <li><%= link_to "プロフィール編集", edit_user_registration_path, id: "profile_edit" %></li>
-	              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-	            </ul>
-	          </li>
-			<% end %>
-		</ul>
+			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>
