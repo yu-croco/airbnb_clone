@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
 	def create
 		@photo = Photo.new(photo_params)
 		if @photo.save
-			render json: { message: "success", photoId: "@photo.id" },
+			render json: { message: "success", photoId: @photo.id },
 				status: 200
 		else
 			render json: { error: @photo.errors.full_messages.join(", ") },
