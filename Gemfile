@@ -19,6 +19,8 @@ gem 'jbuilder', '2.6.4'
 gem 'railties', '5.0.5'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem "paperclip", "~> 5.0.0"
+gem 'dropzonejs-rails'
 
 group :development, :test do
 	gem 'sqlite3', '1.3.13'

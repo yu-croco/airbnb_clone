@@ -16,7 +16,7 @@ class ListingsController < ApplicationController
 	def create
 		@listing = current_user.listings.build(listing_params)
 		if @listing.save
-			redirect_to manage_listings_basics_path(@listing),
+			redirect_to manage_listing_basics_path(@listing),
 				notice: "リスティングの作成・保存が完了しました。"
 		else
 			redirect_to new_listing_path(@listings),
@@ -46,6 +46,7 @@ class ListingsController < ApplicationController
 	end
 
 	def photos
+		@photo = Photo.new
 	end
 
 	def calendar
