@@ -12,7 +12,7 @@ class PhotosController < ApplicationController
 	end
 
 	def destroy
-		@photo = Photo.find=by(params[:id])
+		@photo = Photo.find_by(params[:id])
 		if @photo.destroy
 			render json: { message: "file deleted." }
 		else
