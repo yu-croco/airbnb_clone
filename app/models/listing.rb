@@ -1,5 +1,6 @@
 class Listing < ApplicationRecord
 	belongs_to :user
+	has_many :photos
 
 	validates :house_type, presence: true
 	validates :house_years, presence: true
