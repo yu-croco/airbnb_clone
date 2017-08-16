@@ -24,6 +24,8 @@ group :development, :test do
 	gem 'sqlite3', '1.3.13'
 	gem 'byebug', platform: :mri
 	gem 'spring-commands-rspec', '1.0.4'
+	gem 'pry', '0.10.4'
+	gem 'pry-doc', '0.11.1'
 end
 
 group :development do
