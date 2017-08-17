@@ -21,7 +21,7 @@
 	<div class="row">
 		<div class="col-lg-3 col-md-4">
 			<div class="user-profile row-space-4 text-center">
-				<%= image_tag @user.image, class: "profile-full img-circle" %>
+				<%= image_tag @user.image, class: "profile-full img-circle" if @user.image %>
 			</div>
 			<div class="panel panel-default verifications hidden-xs hidden-sm">
 				<div class="panel-heading">
