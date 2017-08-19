@@ -314,6 +314,11 @@ span.listing-title {
 	height: 100%;
 }
 
+.listing-list-title {
+	font-size:24px;
+}
+
+
 @media (max-width: 767px){
 	.row-table, .col-middle{
 		display: block;
@@ -391,15 +396,14 @@ span.listing-title {
 a {
 	color: #222;
 }
+
+/* common */
 body {
 	color: #222;
 	background-color: #F8F8F8;
 }
 
-.listing-edit {
-	font-size:24px;
+.title-size-normal {
+	font-size: 24px;
 }
 
-.listing-photo-edit {
-	font-size:24px;
-}

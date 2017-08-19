@@ -7,7 +7,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="text-center">
-					<span style="font-size:24px;">公開する</span>
+					<span class="title-size-normal">公開する</span>
 				</div>
 			</div>
 
@@ -16,11 +16,11 @@
 				<%= form_for @listing do |f| %>
 
 					<div class="row">
-					  <div class="col-md-4">
-						<div class="form-group">
-							<%= f.select :active, [["公開する","true"], ["非公開にする","false"]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+						<div class="col-md-4">
+							<div class="form-group">
+								<%= f.select :active, [["公開する","true"], ["非公開にする","false"]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+							</div>
 						</div>
-					  </div>
 					</div>
 
 					<div class="actions">

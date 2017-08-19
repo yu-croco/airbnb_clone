@@ -41,10 +41,10 @@
 					</div>
 				</div>
 			</div>
+      		<%= link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-success btn-full" %>
 		</div>
 		<div class="col-lg-9 col-md-8 col-sm-12">
-			<h1>hello world <%= @user.name %> !</h1>
-			<p>自己紹介</p>
+			<h1>自己紹介</h1>
 			<%= @user.description %>
 		</div>
 	</div>
