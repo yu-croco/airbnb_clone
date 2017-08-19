@@ -30,6 +30,9 @@
 								<div class="col-md-3 col-sm-3 col-middle row-space-1">
 									<%= link_to "編集", manage_listing_basics_path(listing), class: "btn btn-primary pull-right" %>
 								</div>
+								<div class="col-md-3 col-sm-3 col-middle row-space-1">
+									<%= link_to "削除", listing_path(listing), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-danger pull-right" %>
+								</div>
 							</div>
 						</li>
 					<% end %>
