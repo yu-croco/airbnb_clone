@@ -9,23 +9,33 @@
 				</div>
 			</div>
 			<ul class="ul-unstyled">
-				<% @listings.each do |listing| %>
-					<li class="panel-body">
-						<div class="row-table">
-							<div class="col-md-3 col-sm-3 col-middle row-space-2">
-								<div class="panel-list-img text-center">
-									<%= image_tag listing.photos[0].image.url(:medium) if listing.photos.length > 0  %>
+				<% if @listings.nil? %>
+					<div class="text-center">
+						<p>リスティングはありません。</p>
+						<%= link_to "ホストになる", new_listing_path, class: "btn btn-success" %>
+					</div>
+				<% else %>
+					<% @listings.each do |listing| %>
+						<li class="panel-body">
+							<div class="row-table">
+								<div class="col-md-3 col-sm-3 col-middle row-space-2">
+									<div class="panel-list-img text-center">
+										<%= image_tag listing.photos[0].image.url(:medium) if listing.photos.length > 0  %>
+									</div>
+								</div>
+
+								<div class="col-sm-7 col-lg-7 col-middle row-space-2">
+									<span class="listing-title"><%= listing.listing_title %></span>
+								</div>
+								<div class="col-md-3 col-sm-3 col-middle row-space-1">
+									<%= link_to "残り5ステップ", manage_listing_basics_path(listing), class: "btn btn-primary pull-right" %>
 								</div>
 							</div>
-
-							<div class="col-sm-7 col-lg-7 col-middle row-space-2">
-								<span class="listing-title"><%= listing.listing_title %></span>
-							</div>
-							<div class="col-md-3 col-sm-3 col-middle row-space-1">
-								<%= link_to "残り5ステップ", manage_listing_basics_path(listing), class: "btn btn-primary pull-right" %>
-							</div>
-						</div>
-					</li>
+						</li>
+					<% end %>
+					<div class="text-center">
+						<%= link_to "宿泊先を追加する", new_listing_path, class: "btn btn-success" %>
+					</div>
 				<% end %>
 			</ul>
 		</div>
