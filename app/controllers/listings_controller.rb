@@ -62,11 +62,15 @@ end
 
 	private
 		def listing_params
-			params.require(:listing).permit(:house_type, :house_years, :house_size,
-					:price_pernight, :address, :listing_title, :listing_content, :active)
+			params.require(:listing).permit(:house_type, :house_years,
+					:house_size, :price_pernight, :address, :listing_title,
+					:listing_content, :active)
 		end
 
 		def set_listing
-			@listing = Listing.find_by(params[:id])
+			@listing = Listing.find_by(id: params[:id])
+			unless current_user.listings.include?(@listing)
+				redirect_to root_path, alert: "リスティング情報は見つかりませんでした。"
+			end
 		end
 end
