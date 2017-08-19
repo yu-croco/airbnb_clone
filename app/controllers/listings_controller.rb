@@ -1,7 +1,8 @@
 class ListingsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :set_listing, only: [:show, :update, :basics, :description,
-			:address, :price, :photos, :calendar, :bankaccount, :publish]
+			:address, :price, :photos, :calendar, :bankaccount,
+			:publish, :destroy]
 
 	def index
 		@listings = current_user.listings
@@ -33,6 +34,12 @@ class ListingsController < ApplicationController
 		if @listing.update(listing_params)
 			redirect_to :back, notice: '更新が完了しました。'
 		end
+	end
+
+	def destroy
+		@listing.destroy
+		redirect_to listings_path(current_user),
+			notice: 'リスティングを削除しました。'
 	end
 
 	def basics
