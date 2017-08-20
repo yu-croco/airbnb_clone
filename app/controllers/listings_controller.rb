@@ -32,7 +32,8 @@ class ListingsController < ApplicationController
 
 	def update
 		if @listing.update(listing_params)
-			redirect_to :back, notice: '更新が完了しました。'
+			redirect_back(fallback_location: manage_listing_basics_path(@listing),
+					notice: '更新が完了しました。')
 		end
 	end
 
