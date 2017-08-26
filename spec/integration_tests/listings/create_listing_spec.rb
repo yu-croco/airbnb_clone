@@ -22,7 +22,7 @@ describe 'listings can be created.' do
 		select "3人用", from: "listing[house_size]"
 		click_button "保存"
 		expect(page).to have_http_status :success
-		# add listing address
+		# add listing description
 		visit manage_listing_description_path(user)
 		expect(page).to have_http_status :success
 		fill_in "listing[listing_title]", with: "hoge hoge Title."
@@ -31,8 +31,14 @@ describe 'listings can be created.' do
 		expect(page).to have_http_status :success
 		# add listing price per night
 		visit manage_listing_price_path(user)
-		fill_in "listing[price_pernight]", with: "2500"
 		expect(page).to have_http_status :success
+		fill_in "listing[price_pernight]", with: "2500"
+		click_button "更新"
+		expect(page).to have_http_status :success
+		# add listing address
+		visit manage_listing_address_path(user)
+		expect(page).to have_http_status :success
+		fill_in "listing[address]", with: "東京都港区六本木6丁目11-1"
 		click_button "更新"
 		expect(page).to have_http_status :success
 	end
@@ -60,7 +66,7 @@ describe 'listings can be created.' do
 		select "1人用", from: "listing[house_size]"
 		click_button "保存"
 		expect(page).to have_http_status :success
-		# add listing address
+		# add listing description
 		visit manage_listing_description_path(user)
 		# expect(page).to have_http_status :success
 		fill_in "listing[listing_title]", with: "fuga fuga Title."
@@ -69,6 +75,10 @@ describe 'listings can be created.' do
 		# add listing price per night
 		visit manage_listing_price_path(user)
 		fill_in "listing[price_pernight]", with: "3000"
+		click_button "更新"
+		# add listing address
+		visit manage_listing_address_path(user)
+		fill_in "listing[address]", with: "東京都港区六本木6丁目11-1"
 		click_button "更新"
 		# another user can not check user's listing edit page
 		unless user

@@ -3,6 +3,9 @@ class ListingsController < ApplicationController
 	before_action :set_listing, only: [:show, :update, :basics, :description,
 			:address, :price, :photos, :calendar, :bankaccount,
 			:publish, :destroy]
+	before_action :is_own_listing?, only: [:show, :update, :basics, :description,
+			:address, :price, :photos, :calendar, :bankaccount,
+			:publish, :destroy]
 
 	def index
 		@listings = current_user.listings
@@ -77,6 +80,9 @@ end
 
 		def set_listing
 			@listing = Listing.find_by(id: params[:id])
+		end
+
+		def is_own_listing?
 			unless current_user.listings.include?(@listing)
 				redirect_to root_path, alert: "リスティング情報は見つかりませんでした。"
 			end
