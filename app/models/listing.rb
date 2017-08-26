@@ -1,6 +1,7 @@
 class Listing < ActiveRecord::Base
 	belongs_to :user
 	has_many :photos, dependent: :destroy
+	has_many :reservations, dependent: :destroy
 
 	validates :house_type, presence: true
 	validates :house_years, presence: true
