@@ -79,7 +79,7 @@ end
 		end
 
 		def set_listing
-			@listing = Listing.find_by(id: params[:id])
+			@listing = current_user.listings.find_by(id: params[:id])
 		end
 
 		def is_own_listing?
