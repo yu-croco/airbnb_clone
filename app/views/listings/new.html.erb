@@ -3,6 +3,7 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<div class="panel panel-default">
+
 				<div class="panel-heading">
 					<div class="text-center">
 						<span class="title-size-normal">宿泊先情報を掲載する</span>
@@ -10,44 +11,10 @@
 				</div>
 
 				<div class="panel-body">
-					<%= form_for @listing do |f| %>
-						<div class="row">
-							<div class="col-md-12 select">
-								<div class="form-group">
-									<label>家の種類</label>
-									<%= f.select :house_type, [["一軒家","一軒家"], ["マンション","マンション"], ["アパート","アパート"]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
-								</div>
-							</div>
-						</div>
-						<br>
-
-						<div class="row">
-							<div class="col-md-12 select">
-								<div class="form-group">
-									<label>築年数</label>
-									<%= f.select :house_years, [["1年",1], ["2年",2], ["3年",3], ["4年",4], ["5年",5], ["6年以上",6]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
-								</div>
-							</div>
-						</div>
-						<br>
-
-						<div class="row">
-							<div class="col-md-12 select">
-								<div class="form-group">
-									<label>部屋のサイズ</label>
-									<%= f.select :house_size, [["1人用","1人用"], ["2人用","2人用"], ["3人用","3人用"], ["4人用","4人用"]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
-								</div>
-							</div>
-						</div>
-						<br>
-
-						<div class="actions">
-							<%= f.submit "保存", class: "btn btn-primary" %>
-						</div>
-					<% end %>
+					<%= render 'listings/basic_form' %>
 				</div>
+
 			</div>
 		</div>
 	</div>
-
 </div>

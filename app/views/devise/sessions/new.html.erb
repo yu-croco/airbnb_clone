@@ -7,26 +7,21 @@
 			<hr>
 			<%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-facebook", id: "facebook_login" %>
 			<hr>
-			<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-			<div class="form-group">
-				<%= f.label :eメール %><br />
-				<%= f.email_field :email, class: "form-control", placeholder: "eメール", autofocus: true %>
-			</div>
-
+			<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 				<div class="form-group">
-					<%= f.label :パスワード %><br />
-					<%= f.password_field :password, class: "form-control", placeholder: "パスワード", autocomplete: "off" %>
+				    <%= f.input :email, label: "eメール", required: true, autofocus: true, class: "form-control" %>
 				</div>
 
-				<% if devise_mapping.rememberable? -%>
+				<div class="form-group">
+					<%= f.input :password, label: "パスワード", required: true, class: "form-control", autocomplete: "off" %>
+				</div>
+
 					<div class="field">
-					<%= f.check_box :remember_me %>
-					<%= f.label :ログイン情報を記憶する %>
+					    <%= f.input :remember_me, as: :boolean, label: "ログイン情報を記憶する" if devise_mapping.rememberable? %>
 					</div>
-				<% end -%>
 
 				<div class="actions">
-					<%= f.submit "ログイン", class: "btn btn-primary", id: "login" %>
+				    <%= f.button :submit, "ログイン", id: "login", class: "btn btn-primary" %>
 				</div>
 			<% end %>
 

@@ -12,20 +12,18 @@
 			</div>
 
 			<div class="panel-body">
-				<%= form_for @photo, html:{multipart: true,class:"dropzone", id:"my-dropzone" } do |f| %>
+				<%= simple_form_for @photo, html:{multipart: true,class:"dropzone", id:"my-dropzone" } do |f| %>
 
-					<%= f.hidden_field :listing_id, value: @listing.id %>
+					<%= f.input :listing_id, as: :hidden %>
 
 					<div class="dz-message needsclick">
-						<h3>ファイルをここにドロップしてください。</h3>
-						<strong>アップロードするにはここをクリックしてください</strong>
+						<h3>写真をここにドロップしてください。</h3>
 					</div>
 
 					<div class="fallback">
-						<%= f.file_field :image %>
-						<%= f.submit "Upload image" %>
+						<%= f.input :image, as: :file %>
+						<%= f.button :submit, "写真をアップロードする" %>
 					</div>
-
 				<% end %>
 			</div>
 		</div>
