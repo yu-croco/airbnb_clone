@@ -19,5 +19,18 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
+ja:
+  enumerize:
+    house_type:
+      house: house
+      mansion: mansion
+      apartment: apartment
+      other: other
+    house_size:
+      single: single
+      double: double
+      triple: triple
+      quadruple: quadruple
+    active:
+      public: public
+      private: private

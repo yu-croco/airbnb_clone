@@ -1,0 +1,15 @@
+ja:
+  enumerize:
+    house_type:
+      house: 一軒家
+      mansion: マンション
+      apartment: アパート
+      other: その他
+    house_size:
+      single: 1人部屋
+      double: 2人部屋
+      triple: 3人部屋
+      quadruple: 4人部屋
+    active:
+      public: 公開する
+      private: 非公開にする

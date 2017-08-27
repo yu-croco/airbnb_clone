@@ -14,9 +14,9 @@ describe 'listings can be created.' do
 	def create_listing
 		visit root_path
 		click_on "ホストになる"
-		select "マンション", from: "listing[house_type]"
-		select "2年", from: "listing[house_years]"
-		select "3人用", from: "listing[house_size]"
+		find("option[value='mansion']").select_option
+		fill_in "listing[house_years]", with: "5"
+		find("option[value='single']").select_option
 		click_button "保存"
 
 		# add listing address

@@ -24,6 +24,8 @@ gem 'dropzonejs-rails'
 gem 'geocoder'
 gem 'jquery-ui-rails'
 gem 'simple_form'
+gem 'enumerize'
+gem 'rails-i18n'
 
 group :development, :test do
 	gem 'sqlite3', '1.3.13'
