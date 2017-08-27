@@ -26,7 +26,7 @@ class ListingsController < ApplicationController
 				notice: "リスティングの作成・保存が完了しました。"
 		else
 			redirect_to new_listing_path(@listings),
-				notice: "リスティングの作成・保存に失敗しました。"
+				alert: "リスティングの作成・保存に失敗しました。"
 		end
 	end
 

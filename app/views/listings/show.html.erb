@@ -72,21 +72,22 @@
 						<div class="panel-heading">
 								<span class="price-pernight"><%= @listing.price_pernight %>円（一晩あたり）</span>
 						</div>
-						
+
 						<div class="panel-body panel-real">
 							<%= simple_form_for [@listing, @listing.reservations.new] do |f| %>
 
 								<%= f.input :listing_id, as: :hidden %>
 
 								<div class="row row-space-2">
-									<%= f.input :start_date, label: "チェックイン", as: :string, 
-										placeholder: "開始日", wrapper_html: { class: "col-md-6" },
-										input_html: { class: "form-control" } %>
+									<div class="col-md-6">
+										<%= f.input :start_date, label: "チェックイン", as: :string, placeholder: "開始日", class: "form-control" %>
+									</div>
 
-									<%= f.input :end_date, label: "チェックアウト", as: :string,
-										placeholder: "終了日", wrapper_html: { class: "col-md-6" },
-										input_html: { class: "form-control" } %>
+									<div class="col-md-6">
+										<%= f.input :end_date, label: "チェックアウト", as: :string, placeholder: "終了日", class: "form-control" %>
+									</div>
 								</div>
+
 								<div class="actions text-center">
 									<%= f.button :submit, "この日程で予約する", class: "btn btn-primary btn-wide" %>
 								</div>

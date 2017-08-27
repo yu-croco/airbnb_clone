@@ -1,0 +1,32 @@
+<%= simple_form_for @listing do |f| %>
+	<div class="row">
+		<div class="col-md-12 select">
+			<div class="form-group">
+				<%= f.input :house_type, label: "家の種類", collection: ["一軒家", "マンション", "アパート"], required: true, prompt: "選択してください", class: "form-control" %>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<div class="row">
+		<div class="col-md-12 select">
+			<div class="form-group">
+				<%= f.input :house_years, label: "築年数", collection: [["1年", 1], ["2年", 2], ["3年", 3], ["4年", 4], ["5年", 5], ["6年", 6]], required: true, prompt: "選択してください", class: "form-control" %>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<div class="row">
+		<div class="col-md-12 select">
+			<div class="form-group">
+				<%= f.input :house_size, label: "部屋のサイズ", collection: ["1人用", "2人用", "3人用", "4人用"], required: true, prompt: "選択してください", class: "form-control" %>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<div class="actions">
+			<%= f.button :submit, "保存", class: "btn btn-primary" %>
+	</div>
+<% end %>

@@ -13,16 +13,12 @@
 
 			<div class="panel-body">
 
-				<%= form_for @listing do |f| %>
+				<%= simple_form_for @listing do |f| %>
 
 					<div class="row">
 					  <div class="col-md-4">
 						<div class="form-group">
-						  <label>一泊あたりの料金</label>
-						  <div class="input-group">
-							<div class="input-group-addon">円</div>
-							<%= f.text_field :price_pernight, placeholder: "例: 1,000", class: "form-control" %>
-						  </div>
+							<%= f.input :price_pernight, label: "一泊あたりの料金", as: :integer, hint: "例: 1,000円", required: true, class: "form-control" %>
 						</div>
 					  </div>
 					</div>

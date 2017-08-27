@@ -13,12 +13,12 @@
 
 			<div class="panel-body">
 
-				<%= form_for @listing do |f| %>
+				<%= simple_form_for @listing do |f| %>
 
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<%= f.select :active, [["公開する","true"], ["非公開にする","false"]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+								<%= f.input :active, label: "公開設定", collection: [["公開する", true], ["非公開にする", false]], required: true, prompt: "選択してください", class: "form-control" %>
 							</div>
 						</div>
 					</div>
