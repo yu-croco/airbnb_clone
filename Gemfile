@@ -33,6 +33,7 @@ group :development, :test do
 	gem 'spring-commands-rspec', '1.0.4'
 	gem 'pry', '0.10.4'
 	gem 'pry-doc', '0.11.1'
+	gem 'bullet'
 end
 
 group :development do

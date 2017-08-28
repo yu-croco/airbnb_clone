@@ -16,6 +16,18 @@ RSpec.configure do |config|
 	config.filter_rails_from_backtrace!
 	config.include FacebookMock
 	config.include Devise::Test::ControllerHelpers, type: :controller
+
+	# for bullet gem
+	if Bullet.enable?
+		config.before(:each) do
+			Bullet.start_request
+		end
+
+		config.after(:each) do
+			Bullet.perform_out_of_channel_notifications if Bullet.notification?
+			Bullet.end_request
+		end
+	end
 end
 
 # force ORM to use the same transaction for all threads (for fb omniauth)
@@ -28,3 +40,5 @@ class ActiveRecord::Base
 	end
 end
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+
+
