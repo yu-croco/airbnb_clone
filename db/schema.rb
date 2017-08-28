@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170827142607) do
+ActiveRecord::Schema.define(version: 20170828011420) do
 
   create_table "listings", force: :cascade do |t|
     t.string   "house_type",                      null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170827142607) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.string   "listing_id",         null: false
+    t.integer  "listing_id",         null: false
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "image_file_name"
