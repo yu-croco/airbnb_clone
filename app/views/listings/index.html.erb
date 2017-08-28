@@ -9,7 +9,7 @@
 				</div>
 			</div>
 			<ul class="ul-unstyled">
-				<% if @listings.nil? %>
+				<% if @listings.empty? %>
 					<div class="text-center">
 						<p>リスティングはありません。</p>
 						<%= link_to "ホストになる", new_listing_path, class: "btn btn-success" %>
