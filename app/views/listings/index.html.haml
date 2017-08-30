@@ -1,0 +1,27 @@
+= render 'partials/navbar'
+.container
+  .col-md-10.col-md-offset-1
+    .panel.panel-default
+      .panel-heading
+        .text-center
+          %span.title-size-normal リスティング一覧
+      %ul.ul-unstyled
+        - if @listings.empty?
+          .text-center
+            %p リスティングはありません。
+            = link_to "ホストになる", new_listing_path, class: "btn btn-success"
+        - else
+          - @listings.each do |listing|
+            %li.panel-body
+              .row-table
+                .col-md-3.col-sm-3.col-middle.row-space-2
+                  .panel-list-img.text-center
+                    = image_tag listing.photos[0].image.url(:medium) if listing.photos.length > 0
+                .col-sm-7.col-lg-7.col-middle.row-space-2
+                  %span.listing-title= listing.listing_title
+                .col-md-3.col-sm-3.col-middle.row-space-1
+                  = link_to "編集", manage_listing_basics_path(listing), class: "btn btn-primary pull-right"
+                .col-md-3.col-sm-3.col-middle.row-space-1
+                  = link_to "削除", listing_path(listing), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-danger pull-right"
+          .text-center
+            = link_to "リスティングを追加する", new_listing_path, class: "btn btn-success"

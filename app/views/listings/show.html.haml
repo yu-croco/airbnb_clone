@@ -1,0 +1,99 @@
+= render 'partials/navbar'
+.jumbotron.row-space-0.listing-show
+  #myCarousel.carousel.slide{"data-ride" => "carousel"}
+    - if @photos.length > 1
+      %ol.carousel-indicators
+        - @photos.each do |photo|
+          %li{"data-slide-to" => "#{photo.id}", "data-target" => "#myCarousel"}
+    .carousel-inner{:role => "listbox"}
+      - if @photos
+        - @photos.each do |photo|
+          %div{:class => "item #{'active' if photo.id == @photos[0].id}"}
+            = image_tag photo.image.url(), class:"listing-photos"
+    / arrow
+    - if @photos.length > 1
+      %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
+        %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
+        %span.sr-only Previous
+      %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel", :role => "button"}
+        %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
+        %span.sr-only Next
+/ summary
+.container-fluid.container-listing-show
+  .container
+    .listing-summary.row-space-3.row-space-top-3
+      .row
+        .col-md-3.text-center.row-space-2
+          = link_to user_path(@listing.user) do
+            = image_tag @listing.user.image, class:"img-circle profile-2" unless @listing.user.image.nil?
+          %h5= @listing.user.name
+        .col-md-6
+          .listing-title
+            = @listing.listing_title
+          .row.row-space-top-4
+            .col-sm-3.col-xs-3.text-center
+              %i.fa.fa-home.fa-3x
+              %h5= @listing.house_type
+            .col-sm-3.col-xs-3.text-center
+              %i.fa.fa-male.fa-3x{"aria-hidden" => "true"}
+              %h5= @listing.house_size
+            .col-sm-3.col-xs-3.text-center
+              %i.fa.fa-clock-o.fa-3x{"aria-hidden" => "true"}
+              %h5
+                築#{@listing.house_years}年
+        / reservation form
+        .col-md-3
+          .panel.panel-default.panel-show
+            .panel-heading
+              %span.price-pernight
+                = @listing.price_pernight
+                円（一晩あたり）
+            .panel-body.panel-real
+              = simple_form_for [@listing, @listing.reservations.new] do |f|
+                = f.input :listing_id, as: :hidden
+                .row.row-space-2
+                  .col-md-6
+                    = f.input :start_date, label: "チェックイン", as: :string, placeholder: "開始日", class: "form-control"
+                  .col-md-6
+                    = f.input :end_date, label: "チェックアウト", as: :string, placeholder: "終了日", class: "form-control"
+                .actions.text-center
+                  = f.button :submit, "この日程で予約する", class: "btn btn-primary btn-wide"
+/ main content
+.container
+  .row
+    .col-md-9
+      %h3.row-space-3 宿泊先詳細情報
+      %p
+        = @listing.listing_content
+    .col-md-3
+  / google map
+  .row
+    .col-md-9
+      %h3 アクセス
+      #map
+    .col-md-3
+:javascript
+  function initMap() {
+  	// Create the map.
+  	let map = new google.maps.Map(document.getElementById('map'), {
+  		zoom: 14,
+  		center: {lat: #{@listing.latitude}, lng: #{@listing.longitude}},
+  		mapTypeId: google.maps.MapTypeId.TERRAIN
+  	});
+
+  	// Construct the circle for each value in citymap.
+  	// Note: We scale the area of the circle based on the population.
+  	// Add the circle for this city to the map.
+  	let cityCircle = new google.maps.Circle({
+  		strokeColor: '#FF0000',
+  		strokeOpacity: 0.8,
+  		strokeWeight: 2,
+  		fillColor: '#FF0000',
+  		fillOpacity: 0.35,
+  		map: map,
+  		center: {lat: #{@listing.latitude}, lng:#{@listing.longitude}},
+  		radius: 500
+  	});
+  }
+%script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCSOxMnIVJxZQQ-aeHTJDJdLQs084hgTgM&callback=initMap"}
+  :cdata

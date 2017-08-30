@@ -26,6 +26,9 @@ gem 'jquery-ui-rails'
 gem 'simple_form'
 gem 'enumerize'
 gem 'rails-i18n'
+gem 'hamlit'
+gem 'hamlit-rails'
+gem 'html2haml'
 
 group :development, :test do
 	gem 'sqlite3', '1.3.13'

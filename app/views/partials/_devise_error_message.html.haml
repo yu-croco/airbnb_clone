@@ -1,0 +1,4 @@
+- unless resource.errors.empty?
+  - resource.errors.full_messages.each do |msg|
+    :javascript
+      toastr.error("= msg");
