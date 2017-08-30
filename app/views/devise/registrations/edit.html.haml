@@ -1,0 +1,23 @@
+= render 'partials/navbar'
+.container
+  .row
+    .col-md-3.row-space-4
+      = link_to "プロフィールを確認する", user_path(current_user), class: "btn btn-success btn-full"
+    .col-md-9
+      .panel.panel-defaule
+        .panel-heading プロフィール編集
+        .panel-body
+          = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            = render 'partials/devise_error_message'
+            .form-group
+              = f.input :email, label: "eメール", autofocus: true, class: 'form-control'
+            .form-group
+              = f.input :phone_number, label: "電話番号", autofocus: true, class: 'form-control'
+            .form-group
+              = f.input :description, label: "自己紹介文", as: :text, autofocus: true, class: 'form-control'
+            .form-group
+              = f.input :new_password, label: "新しいパスワード", autocomplete: "off", hint: "変更しない場合は空欄で構いません。", required: false
+            .form-group
+              = f.input :password_confirmation, label: "パスワードの確認", required: false
+            .actions
+              = f.button :submit,  "プロフィールを更新", class: "btn btn-primary"
