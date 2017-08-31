@@ -4,6 +4,6 @@ class ChangeColumnTypeToPhotos < ActiveRecord::Migration[5.0]
   end
 
   def down
-  	change_column :photos, :listing_id, :string, null: false
+  	change_column :photos, :listing_id, :string
   end
 end
