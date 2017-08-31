@@ -30,7 +30,13 @@
               %span.caret
             %ul.dropdown-menu
               %li
-                = link_to "リスティング一覧", listings_path, id: "profile_edit"
+                = link_to "リスティング一覧", listings_path, id: "listings"
+              %li
+              %li
+                = link_to "宿泊先予約管理", reservations_path, id: "reservations"
+              %li
+              %li
+                = link_to "宿泊者の予約管理", guest_reservations_path, id: "guest_reservations"
               %li
                 = link_to "プロフィール", user_path(current_user), id: "profile"
               %li
