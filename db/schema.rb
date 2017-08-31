@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828011420) do
+ActiveRecord::Schema.define(version: 20170831155209) do
 
   create_table "listings", force: :cascade do |t|
     t.string   "house_type",                      null: false
@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 20170828011420) do
     t.datetime "updated_at",                      null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.         "user_id_id"
     t.index ["user_id"], name: "index_listings_on_user_id"
+    t.index ["user_id_id"], name: "index_listings_on_user_id_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -37,7 +39,9 @@ ActiveRecord::Schema.define(version: 20170828011420) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.         "listing_id_id"
     t.index ["listing_id"], name: "index_photos_on_listing_id"
+    t.index ["listing_id_id"], name: "index_photos_on_listing_id_id"
   end
 
   create_table "reservations", force: :cascade do |t|
