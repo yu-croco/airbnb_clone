@@ -16,15 +16,20 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	# ToDo: access_key_id and secret_access_key are fake
 	# storage for user images or listing images
-	if Rails.env.production?
-		has_attached_file :image, storage: :s3, s3_credentials: S3_CREDENTIALS,
-			default_url: "avatar-default.png",
-			style: { medium: "400x400>", thumb: "100x100>"}
-		validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
-	else
+	# if Rails.env.production?
+	# 	S3_CREDENTIALS={access_key_id: "AKIAIULMCGQ4LHAXHC3A",
+	# 	secret_access_key: "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",
+	# 	bucket:"yu-kita-airbnb-clone",
+	# 	s3_host_name: "s3-ap-northeast-1.amazonaws.com"} # region is Tokyo
+	# 	has_attached_file :image, storage: :s3, s3_credentials: S3_CREDENTIALS,
+	# 		default_url: "avatar-default.png",
+	# 		style: { medium: "400x400>", thumb: "100x100>"}
+	# 	validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+	# else
 		has_attached_file :image, style: { medium: "400x400>", thumb: "100x100>"},
 			default_url: "avatar-default.png"
 		validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
-	end
+	# end
 end
