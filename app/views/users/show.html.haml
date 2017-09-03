@@ -2,33 +2,33 @@
 / authentication check mark
 :javascript
   $(function() {
-  <haml_silent>		 if !@user.email.blank? 
-  </haml_silent><haml_block>			$("#ver-email").attr('class', 'vertification-checked');
-  </haml_block>
-  <haml_silent>		 if !@user.phone_number.blank? 
-  </haml_silent><haml_block>			$("#ver-tel").attr('class', 'vertification-checked');
-  </haml_block>
-  <haml_silent>		 if @user.provider == &quot;facebook&quot; 
-  </haml_silent><haml_block>			$("#ver-facebook").attr('class', 'vertification-checked');
-  </haml_block>	});
+  - if !@user.email.blank?
+    $("#ver-email").attr('class', 'vertification-checked');
+  - if !@user.phone_number.blank?
+    $("#ver-tel").attr('class', 'vertification-checked');
+  - if @user.provider == &quot;facebook&quot;
+    $("#ver-facebook").attr('class', 'vertification-checked');
+  });
+
 .container
   .row
     .col-lg-3.col-md-4
       .user-profile.row-space-4.text-center
-        = image_tag @user.image, class: "profile-full img-circle" if @user.image
-      .panel.panel-default.verifications.hidden-xs.hidden-sm
-        .panel-heading
-          認証済みID
-        .panel-body
-          #ver-email
-            メールアドレス
-          %br/
-          #ver-tel
-            電話番号
-          %br/
-          #ver-facebook
-            Facebook
-      = link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-success btn-full"
+        = image_tag @user.image, class: "profile-full img-circle"
+      - if @user == current_user
+        .panel.panel-default.verifications.hidden-xs.hidden-sm
+          .panel-heading
+            認証済みID
+          .panel-body
+            #ver-email
+              メールアドレス
+            %br/
+            #ver-tel
+              電話番号
+            %br/
+            #ver-facebook
+              Facebook
+        = link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-success btn-full"
     .col-lg-9.col-md-8.col-sm-12
       %h1 自己紹介
       = @user.description

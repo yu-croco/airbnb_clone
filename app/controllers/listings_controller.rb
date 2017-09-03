@@ -1,17 +1,17 @@
 class ListingsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :set_listing, only: [ :show, :update, :basics, :description,
+	before_action :set_listing, only: [ :update, :basics, :description,
 			:address, :price, :photos, :calendar, :bankaccount,
 			:publish, :destroy]
-	before_action :is_own_listing?, only: [ :show, :update, :basics, :description,
-			:address, :price, :photos, :calendar, :bankaccount,
-			:publish, :destroy]
+	before_action :is_own_listing?, only: [ :update, :basics, :description,
+			:address, :price, :calendar, :bankaccount, :publish, :destroy]
 
 	def index
 		@listings = current_user.listings.includes(:photos)
 	end
 
 	def show
+		@listing = Listing.find(params[:id])
 		@photos = @listing.photos
 	end
 

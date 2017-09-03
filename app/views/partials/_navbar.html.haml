@@ -24,9 +24,11 @@
               - if current_user.provider
                 / facebook login
                 = image_tag current_user.image, class: "img-circle profile-0"
+                = current_user.name
               - else
                 / normal login
-                = current_user.email
+                = image_tag current_user.image, class: "img-circle profile-0"
+                = current_user.email.split("@")[0]
               %span.caret
             %ul.dropdown-menu
               %li
