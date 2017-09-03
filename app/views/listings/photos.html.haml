@@ -9,7 +9,7 @@
           %span.title-size-normal リスティング写真の編集
       .panel-body
         = simple_form_for @photo, html:{multipart: true,class:"dropzone", id:"my-dropzone" } do |f|
-          = f.input :listing_id, as: :hidden
+          = f.input :listing_id, as: :hidden, input_html: { value: @listing.id }
           .dz-message.needsclick
             %h3 写真をここにドロップしてください。
           .fallback
@@ -29,9 +29,9 @@
                 $(file.previewElement).find('.dz-remove').attr('id', response.photoId);
               },
               removedfile: function(file) {
-                let id = $(file.previewTemplate).find('.dz-remove').attr('id');
+                var id = $(file.previewTemplate).find('.dz-remove').attr('id');
                 $.ajax({
-                  type: 'DELETE',
+                  type: "DELETE",
                   url: "/photos/" + id,
                   success: function(data) {
                     console.log(data.message);
@@ -48,7 +48,7 @@
                 let me = this;
 
                 me.on("complete", function(file) {
-                  $(file.previewTemplate).find('.dz-remove').text("&#x524A;&#x9664;&#x3059;&#x308B;");
+                  $(file.previewTemplate).find('.dz-remove').text("削除する");
                 });
                   //call list function in photos_controller.rb with get method
                 $.ajax({

@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+	before_action :set_listing, only: [ :create ]
 
 	def create
 		@photo = Photo.new(photo_params)
@@ -12,7 +13,7 @@ class PhotosController < ApplicationController
 	end
 
 	def destroy
-		@photo = Photo.find_by(params[:id])
+		@photo = Photo.find_by(id: params[:id])
 		if @photo.destroy
 			render json: { message: "file deleted." }
 		else
@@ -39,5 +40,9 @@ class PhotosController < ApplicationController
 
 	def photo_params
 		params.require(:photo).permit(:image, :listing_id)
+	end
+
+	def set_listing
+		@listing = current_user.listings.find_by(id: params[:id])
 	end
 end

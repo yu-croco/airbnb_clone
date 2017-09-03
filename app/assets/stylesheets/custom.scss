@@ -372,9 +372,16 @@ span.listing-title {
 	background: none;
 }
 
-.listing-photos {
-	height:420px; width:100%;
-	overflow:hidden;
+.listing-photo {
+	height: 420px;
+	width: 100%;
+	overflow: hidden;
+	text-align:center;
+}
+
+.photo {
+	height: 400px;
+	width: 400px;
 }
 
 .price-pernight {
