@@ -28,6 +28,7 @@ gem 'enumerize'
 gem 'rails-i18n'
 gem 'hamlit'
 gem 'hamlit-rails'
+gem 'aws-sdk', '< 2.0'
 
 group :development, :test do
 	gem 'sqlite3', '1.3.13'
@@ -35,6 +36,8 @@ group :development, :test do
 	gem 'spring-commands-rspec', '1.0.4'
 	gem 'pry', '0.10.4'
 	gem 'pry-doc', '0.11.1'
+	gem 'pry-rails'
+	gem 'pry-byebug'
 	gem 'bullet'
 end
 
