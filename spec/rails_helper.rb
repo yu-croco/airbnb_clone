@@ -16,6 +16,7 @@ RSpec.configure do |config|
 	config.filter_rails_from_backtrace!
 	config.include FacebookMock
 	config.include Devise::Test::ControllerHelpers, type: :controller
+	config.include BasicUserActions
 
 	# for bullet gem
 	if Bullet.enable?

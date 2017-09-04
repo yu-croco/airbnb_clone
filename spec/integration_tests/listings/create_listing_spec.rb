@@ -3,16 +3,8 @@ require 'rails_helper'
 describe 'listings can be created.' do
 	let(:user) { create(:user) }
 
-	def login_with_user
-		visit new_user_session_path
-		fill_in 'user[email]', with: user.email
-		fill_in 'user[password]', with: user.password
-		click_button "login"
-		expect(page).to have_content 'Signed in successfully.'
-	end
-
 	it 'can create listing' do
-		login_with_user
+		login_with_user(user)
 		# create listing basic
 		visit root_path
 		click_on "ホストになる"
@@ -43,7 +35,7 @@ describe 'listings can be created.' do
 	end
 
 	it 'can not see unexistence listing edit page' do
-		login_with_user
+		login_with_user(user)
 		# try to visit unexistence listing edit page
 		visit manage_listing_basics_path(1000)
 		expect(current_path).to eq root_path
@@ -56,7 +48,7 @@ describe 'listings can be created.' do
 	end
 
 	it 'can not see another user\'s listing edit page' do
-		login_with_user
+		login_with_user(user)
 		# create listing basic
 		visit root_path
 		click_on "ホストになる"
