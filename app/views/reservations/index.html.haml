@@ -1,0 +1,25 @@
+= render 'partials/navbar'
+.container
+  .col-md-10.col-md-offset-1
+    .panel.panel-default
+      .panel-heading
+        .text-center
+          %span.reservation-manage-list 宿泊先予約管理
+      %ul.ul-unstyled
+        - if @reservations.empty?
+          .text-center
+            %p 予約済みの宿泊先はありません。
+            / # ToDo: need to add pat
+            = link_to "宿泊先を予約する", ' ', class: "btn btn-success"
+        - else
+          - @reservations.each do |reservation|
+            %panel-body
+              .row-table
+                .col-sm-4.col-lg-4.col-middle.row-space-4
+                  %span.listing-title= reservation.listing.listing_title
+                .col-md-3.col-sm-3.col-xs-3.col-middle.row-space-3
+                  %p
+                  = reservation.start_date.strftime('%Y年%m月%d日〜')
+                  = reservation.end_date.strftime('%Y年%m月%d日')
+                .col-md-3.col-sm-3.col-xs-8.col-middle.row-space-2
+                  = link_to "宿泊先詳細", listing_path(reservation.listing_id), class: "btn btn-success"

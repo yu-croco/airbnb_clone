@@ -9,64 +9,64 @@
           %span.title-size-normal リスティング写真の編集
       .panel-body
         = simple_form_for @photo, html:{multipart: true,class:"dropzone", id:"my-dropzone" } do |f|
-          = f.input :listing_id, as: :hidden
+          = f.input :listing_id, as: :hidden, input_html: { value: @listing.id }
           .dz-message.needsclick
             %h3 写真をここにドロップしてください。
           .fallback
             = f.input :image, as: :file
             = f.button :submit, "写真をアップロードする"
-/ dropzone.js
-:javascript
-  $(function () {
-  	Dropzone.autoDiscover = false;
-  	//call create action of photos_controller.rb
-  	$("#my-dropzone").dropzone({
-  		maxFilesize: 200,	// MB
-  		addRemoveLinks: true,
-  		paramName: 'photo[image]',
-  		success: function(file, response) {
-  			$(file.previewElement).addClass('dz-success');
-  			$(file.previewElement).find('.dz-remove').attr('id', response.photoId);
-  		},
-  		removedfile: function(file) {
-  			let id = $(file.previewTemplate).find('.dz-remove').attr('id');
-  			$.ajax({
-  				type: 'DELETE',
-  				url: "/photos/" + id,
-  				success: function(data) {
-  					console.log(data.message);
-  				}
-  			});
+        / dropzone.js
+        :javascript
+          $(function () {
+            Dropzone.autoDiscover = false;
+            //call create action of photos_controller.rb
+            $("#my-dropzone").dropzone({
+              maxFilesize: 200, // MB
+              addRemoveLinks: true,
+              paramName: 'photo[image]',
+              success: function(file, response) {
+                $(file.previewElement).addClass('dz-success');
+                $(file.previewElement).find('.dz-remove').attr('id', response.photoId);
+              },
+              removedfile: function(file) {
+                var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+                $.ajax({
+                  type: "DELETE",
+                  url: "/photos/" + id,
+                  success: function(data) {
+                    console.log(data.message);
+                  }
+                });
 
-  			let previewElement;
-  			return (previewElement = file.previewElement) != null ?
-  				(previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
-  		},
-  		// init executed at first when Page loaded
-  		init: function() {
-  			//this equal dropzone
-  			let me = this;
+                let previewElement;
+                return (previewElement = file.previewElement) != null ?
+                  (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
+              },
+              // init executed at first when Page loaded
+              init: function() {
+                //this equal dropzone
+                let me = this;
 
-  			me.on("complete", function(file) {
-  				$(file.previewTemplate).find('.dz-remove').text("&#x524A;&#x9664;&#x3059;&#x308B;");
-  			});
-  		  	//call list function in photos_controller.rb with get method
-  			$.ajax({
-  				type: "GET",
-  				url: "/photos/list",
-  				data: {'listing_id': #{@listing.id}},
-  				dataType: 'json',
-  				success: function(data){
-  					$.each(data.images, function(key, value) {
-  						if (data.images != undefined && data.images.length > 0) {
-  							me.emit("addedfile", value);
-  							me.emit("thumbnail", value, value.src);
-  							me.emit("complete", value);
-  							$(value._removeLink).attr("id", value.id);
-  						}
-  					});
-  				}
-  			});
-  		}
-  	});
-  });
+                me.on("complete", function(file) {
+                  $(file.previewTemplate).find('.dz-remove').text("削除する");
+                });
+                  //call list function in photos_controller.rb with get method
+                $.ajax({
+                  type: "GET",
+                  url: "/photos/list",
+                  data: {'listing_id': #{@listing.id}},
+                  dataType: 'json',
+                  success: function(data){
+                    $.each(data.images, function(key, value) {
+                      if (data.images != undefined && data.images.length > 0) {
+                        me.emit("addedfile", value);
+                        me.emit("thumbnail", value, value.src);
+                        me.emit("complete", value);
+                        $(value._removeLink).attr("id", value.id);
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          });

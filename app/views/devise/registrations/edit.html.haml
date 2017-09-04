@@ -16,6 +16,8 @@
             .form-group
               = f.input :description, label: "自己紹介文", as: :text, autofocus: true, class: 'form-control'
             .form-group
+            .form-group
+              = f.input :image, label: "プロフィール写真", as: :file, autofocus: true, class: 'form-control'
               = f.input :new_password, label: "新しいパスワード", autocomplete: "off", hint: "変更しない場合は空欄で構いません。", required: false
             .form-group
               = f.input :password_confirmation, label: "パスワードの確認", required: false

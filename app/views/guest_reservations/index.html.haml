@@ -1,0 +1,23 @@
+= render 'partials/navbar'
+.container
+  .col-md-10.col-md-offset-1
+    .panel.panel-default
+      .panel-heading
+        .text-center
+          %span.guest-reservation-manage-list 宿泊者の予約管理
+      %ul.ul-unstyled
+      - @listings.each do |listing|
+        - if listing.reservations.empty?
+          .text-center
+            %p 宿泊先を予約している人はいません。
+        - else
+          - listing.reservations.each do |reservation|
+            %panel-body
+              .row-table
+                .col-sm-4.col-lg-4.col-middle.row-space-4
+                  %span.listing-title= listing.listing_title
+                .col-md-3.col-sm-3.col-xs-3.col-middle.row-space-3
+                  = reservation.start_date.strftime('%Y年%m月%d日〜')
+                  = reservation.end_date.strftime('%Y年%m月%d日')
+                .col-md-3.col-sm-3.col-xs-8.col-middle.row-space-2
+                  = link_to "予約者を確認する", user_path(reservation.user_id), class: "btn btn-success"

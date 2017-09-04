@@ -1,6 +1,10 @@
 = render 'partials/navbar'
 .jumbotron.row-space-0.listing-show
   #myCarousel.carousel.slide{"data-ride" => "carousel"}
+    - if @photos.empty?
+      .listing-photo
+      = image_tag 'house-default.png'
+
     - if @photos.length > 1
       %ol.carousel-indicators
         - @photos.each do |photo|
@@ -9,7 +13,8 @@
       - if @photos
         - @photos.each do |photo|
           %div{:class => "item #{'active' if photo.id == @photos[0].id}"}
-            = image_tag photo.image.url(), class:"listing-photos"
+            .listing-photo
+              = image_tag photo.image.url(), class: "photo"
     / arrow
     - if @photos.length > 1
       %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}

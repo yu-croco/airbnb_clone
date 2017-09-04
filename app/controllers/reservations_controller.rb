@@ -1,5 +1,9 @@
 class ReservationsController < ApplicationController
 
+	def index
+		@reservations = current_user.reservations
+	end
+
 	def create
 		@reservation = current_user.reservations.new(reservation_params)
 		if @reservation.save
