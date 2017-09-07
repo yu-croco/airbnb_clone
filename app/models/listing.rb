@@ -3,6 +3,9 @@ class Listing < ActiveRecord::Base
 	has_many :photos, dependent: :destroy
 	has_many :reservations, dependent: :destroy
 
+	# register litings & photos on same form request
+	accepts_nested_attributes_for :photos, allow_destroy: true
+
 	validates :house_type, presence: true
 	validates :house_years, presence: true
 	validates :house_size, presence: true

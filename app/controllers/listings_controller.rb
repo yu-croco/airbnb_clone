@@ -1,28 +1,27 @@
 class ListingsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :set_listing, only: [ :update, :basics, :description,
-			:address, :price, :photos, :calendar, :bankaccount,
-			:publish, :destroy]
-	before_action :is_own_listing?, only: [ :update, :basics, :description,
-			:address, :price, :calendar, :bankaccount, :publish, :destroy]
+	before_action :set_listing, only: [ :show, :new, :create, :update, :edit, :destroy ]
+	before_action :is_own_listing?, only: [ :update, :edit, :destroy ]
 
 	def index
 		@listings = current_user.listings.includes(:photos)
 	end
 
 	def show
-		@listing = Listing.find(params[:id])
 		@photos = @listing.photos
 	end
 
 	def new
-		@listing = current_user.listings.build
+		@listing = current_user.listings.new
+		# @photo = Photo.new
+		@photo = @listing.photos.build
 	end
 
 	def create
+		# @photo = Photo.new(listing_params)
 		@listing = current_user.listings.build(listing_params)
 		if @listing.save
-			redirect_to manage_listing_basics_path(@listing),
+			redirect_to listings_path,
 				notice: "リスティングの作成・保存が完了しました。"
 		else
 			redirect_to new_listing_path(@listings),
@@ -31,12 +30,16 @@ class ListingsController < ApplicationController
 	end
 
 	def edit
+		@photo = Photo.where(listing_id: params[:listing_id])
+		# @photo = Listing.photos.find_by(listing_id: params[:listing_id])
 	end
 
 	def update
-		if @listing.update(listing_params)
-			redirect_back(fallback_location: manage_listing_basics_path(@listing),
-					notice: '更新が完了しました。')
+		if @listing.update_attributes(listing_params)
+			redirect_to listings_path, notice: '更新が完了しました。'
+		else
+			render rdit_listing_path(@listings),
+				alert: "リスティングの編集に失敗しました。"
 		end
 	end
 
@@ -46,36 +49,11 @@ class ListingsController < ApplicationController
 			notice: 'リスティングを削除しました。'
 	end
 
-	def basics
-	end
-
-	def description
-	end
-
-	def address
-	end
-
-	def price
-	end
-
-	def photos
-		@photo = Photo.new
-	end
-
-	def calendar
-	end
-
-	def bankaccount
-	end
-
-def publish
-end
-
 	private
 		def listing_params
 			params.require(:listing).permit(:house_type, :house_years,
 					:house_size, :price_pernight, :address, :listing_title,
-					:listing_content, :active)
+					:listing_content, :active, photos_attributes: [:image, :listing_id])
 		end
 
 		def set_listing

@@ -6,8 +6,8 @@
 /         .text-center
 /           %span.title-size-normal リスティング写真の編集
 /       .panel-body
-/         = simple_form_for @photo, html:{multipart: true,class:"dropzone", id:"my-dropzone" } do |f|
-/           = f.input :listing_id, as: :hidden, input_html: { value: @listing.id }
+/         = simple_form_for @photo, :url => {controller: :photos, action: :create}, html:{multipart: true, class:"dropzone", id:"my-dropzone" } do |f|
+/           = f.input :listing_id, as: :hidden, input_html: { value: @photo.listing_id }
 /           .dz-message.needsclick
 /             %h3 写真をここにドロップしてください。
 /           .fallback
@@ -52,8 +52,8 @@
 /                   //call list function in photos_controller.rb with get method
 /                 $.ajax({
 /                   type: "GET",
-/                   url: "/photos/list",
-/                   data: {'listing_id': #{@listing.id}},
+/                   url: "/listings/list",
+/                   data: {'listing_id': #{@photo.listing_id}},
 /                   dataType: 'json',
 /                   success: function(data){
 /                     $.each(data.images, function(key, value) {

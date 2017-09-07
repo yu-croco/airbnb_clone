@@ -29,6 +29,7 @@ gem 'rails-i18n'
 gem 'hamlit'
 gem 'hamlit-rails'
 gem 'aws-sdk', '< 2.0'
+gem 'cocoon'
 
 group :development, :test do
 	gem 'sqlite3', '1.3.13'
