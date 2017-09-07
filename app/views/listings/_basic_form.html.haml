@@ -3,16 +3,54 @@
     .col-md-12.select
       .form-group
         = f.input :house_type, label: "家の種類", required: true, prompt: "選択してください", class: "form-control"
-  %br/
+  %br
   .row
     .col-md-12.select
       .form-group
         = f.input :house_years, label: "築年数", as: :integer, required: true, prompt: "選択してください", class: "form-control"
-  %br/
+  %br
   .row
     .col-md-12.select
       .form-group
         = f.input :house_size, label: "部屋のサイズ", required: true, prompt: "選択してください", class: "form-control"
-  %br/
+  %br
+  .row
+    .col-md-12
+      .form-group
+        = f.input :address, label: "住所", class: "form-control", hint: "例: 東京都港区六本木6丁目11-1"
+
+  %br
+  .row
+    .col-md-12
+      .form-group
+        = f.input :listing_title, label: "タイトル",  class: "form-control"
+
+  %br
+  .row
+    .col-md-12
+      .form-group
+        = f.input :listing_content, label: "内容", as: :text, class: "form-control"
+
+  %br
+  .row
+    .col-md-5
+      .form-group
+        = f.input :price_pernight, label: "一泊あたりの料金", as: :integer, hint: "例: 1,000円", required: true, class: "form-control"
+
+  %br
+  .row
+    .col-md-5
+      .form-group
+        = f.input :active, label: "公開設定", collection: [["公開する", true], ["非公開にする", false]], required: true, prompt: "選択してください", class: "form-control"
+
+  %br
+  .row
+    .col-md-5
+      .form-group
+        = f.fields_for :photos, html:{multipart: true, class:"dropzone", id:"my-dropzone" } do |photo|
+          = render 'photo_fields', f: photo
+        .links
+          = link_to_add_association "リスティングを追加", f, :photos
+  %br
   .actions
     = f.button :submit, "保存", class: "btn btn-primary"

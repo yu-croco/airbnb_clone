@@ -2,31 +2,25 @@ Rails.application.routes.draw do
 
   get 'guest_reservation_controller/index'
 
-		root to: 'static_pages#index'
+	root to: 'static_pages#index'
 
-		devise_for :users, controllers: { omniauth_callbacks:  'users/omniauth_callbacks',
-				registrations: 'registrations' }
+	devise_for :users, controllers: { omniauth_callbacks:  'users/omniauth_callbacks',
+			registrations: 'registrations' }
 
-		resources :listings do
-			resources :reservations, only: [:create]
-		end
+	resources :listings do
+		resources :reservations, only: [:create]
+	end
 
-		resources :users, only: [:show]
-		resources :photos, only: [:create, :destroy] do
+	resources :listings do
+		resources :photos, only: [:new, :create, :destroy], shallow: true
 			collection do
 				get :list
 			end
-		end
+	end
 
-		get '/reservations', to: 'reservations#index'
-		get '/guest-reservations', to: 'guest_reservations#index'
+	resources :users, only: [:show]
 
-		get 'manage-listings/:id/basics', to: 'listings#basics', as: 'manage_listing_basics'
-		get 'manage-listings/:id/description', to: 'listings#description', as: 'manage_listing_description'
-		get 'manage-listings/:id/address', to: 'listings#address', as: 'manage_listing_address'
-		get 'manage-listings/:id/price', to: 'listings#price', as: 'manage_listing_price'
-		get 'manage-listings/:id/photos', to: 'listings#photos', as: 'manage_listing_photos'
-		get 'manage-listings/:id/calendar', to: 'listings#calendar', as: 'manage_listing_calendar'
-		get 'manage-listings/:id/bankaccount', to: 'listings#bankaccount', as: 'manage_listing_bankaccount'
-		get 'manage-listings/:id/publish', to: 'listings#publish', as: 'manage_listing_publish'
+	get '/reservations', to: 'reservations#index'
+	get '/guest-reservations', to: 'guest_reservations#index'
+
 end
