@@ -3,7 +3,9 @@
   #myCarousel.carousel.slide{"data-ride" => "carousel"}
     - if @photos.empty?
       .listing-photo
-      = image_tag 'house-default.png'
+        .carousel-inner{:role => "listbox"}
+        %ol.carousel-indicators.default-img
+          = image_tag 'house-default.png'
 
     - if @photos.length > 1
       %ol.carousel-indicators

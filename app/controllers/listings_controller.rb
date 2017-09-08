@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :set_listing, only: [ :show, :new, :create, :update, :edit, :destroy ]
+	before_action :set_listing, only: [ :update, :edit, :destroy ]
 	before_action :is_own_listing?, only: [ :update, :edit, :destroy ]
 
 	def index
@@ -8,17 +8,15 @@ class ListingsController < ApplicationController
 	end
 
 	def show
+		@listing = Listing.find(params[:id])
 		@photos = @listing.photos
 	end
 
 	def new
 		@listing = current_user.listings.new
-		# @photo = Photo.new
-		@photo = @listing.photos.build
 	end
 
 	def create
-		# @photo = Photo.new(listing_params)
 		@listing = current_user.listings.build(listing_params)
 		if @listing.save
 			redirect_to listings_path,
@@ -30,8 +28,7 @@ class ListingsController < ApplicationController
 	end
 
 	def edit
-		@photo = Photo.where(listing_id: params[:listing_id])
-		# @photo = Listing.photos.find_by(listing_id: params[:listing_id])
+		@photo = @listing.photos.where(listing_id: params[:listing_id])
 	end
 
 	def update
@@ -45,7 +42,7 @@ class ListingsController < ApplicationController
 
 	def destroy
 		@listing.destroy
-		redirect_to listings_path(current_user),
+		redirect_to listings_path,
 			notice: 'リスティングを削除しました。'
 	end
 

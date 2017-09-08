@@ -6,7 +6,7 @@ describe 'listings can be created.' do
 	it 'can reserve listing with correct date' do
 		login_with_user(user)
 		create_listing
-		sleep 1 # wait 1 sec for load
+		sleep 5 # wait 1 sec for load
 		visit listing_path(1)
 		fill_in "reservation[start_date]", with: "2017/01/01"
 		fill_in "reservation[end_date]", with: "2017/01/12"
@@ -19,7 +19,7 @@ describe 'listings can be created.' do
 	it 'can not reserve listing with incorrect date' do
 		login_with_user(user)
 		create_listing
-		sleep 1 # wait 1 sec for load
+		sleep 5 # wait 1 sec for load
 		visit listing_path(1)
 		fill_in "reservation[start_date]", with: "2017/01/51"
 		fill_in "reservation[end_date]", with: "2017/14/62"

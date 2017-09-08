@@ -10,26 +10,26 @@ module BasicUserActions
 	def create_listing
 		visit root_path
 		click_on "ホストになる"
+
+		# fill in house info
 		find("option[value='mansion']").select_option
 		fill_in "listing[house_years]", with: "5"
 		find("option[value='single']").select_option
-		click_button "保存"
 
-		# add listing address
-		visit manage_listing_description_path(user)
+		# fill in address info
+		fill_in "listing[address]", with: "東京都港区六本木6丁目11-1"
+
+		# fill in listing info
 		fill_in "listing[listing_title]", with: "hoge hoge Title."
 		fill_in "listing[listing_content]", with: "hoge hoge Content."
-		click_button "更新"
 
-		# add listing price per night
-		visit manage_listing_price_path(user)
+		# fill in price info
 		fill_in "listing[price_pernight]", with: "2500"
-		click_button "更新"
 
-		# add listing address
-		visit manage_listing_address_path(user)
-		fill_in "listing[address]", with: "東京都港区六本木6丁目11-1"
-		click_button "更新"
+		# fill in publish info
+		find("option[value='true']").select_option
+
+		click_button "保存"
 	end
 
 end

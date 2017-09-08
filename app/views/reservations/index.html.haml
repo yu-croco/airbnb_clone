@@ -5,7 +5,7 @@
       .panel-heading
         .text-center
           %span.reservation-manage-list 宿泊先予約管理
-      %ul.ul-unstyled
+      %ul-unstyled
         - if @reservations.empty?
           .text-center
             %p 予約済みの宿泊先はありません。
@@ -14,8 +14,8 @@
         - else
           - @reservations.each do |reservation|
             %panel-body
-              .row-table
-                .col-sm-4.col-lg-4.col-middle.row-space-4
+              .row-table.table-bordered
+                .col-md-3.col-sm-3.col-middle.row-space-3
                   %span.listing-title= reservation.listing.listing_title
                 .col-md-3.col-sm-3.col-xs-3.col-middle.row-space-3
                   %p

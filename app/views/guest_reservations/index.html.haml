@@ -5,15 +5,11 @@
       .panel-heading
         .text-center
           %span.guest-reservation-manage-list 宿泊者の予約管理
-      %ul.ul-unstyled
-      - @listings.each do |listing|
-        - if listing.reservations.empty?
-          .text-center
-            %p 宿泊先を予約している人はいません。
-        - else
+      %ul-unstyled
+        - @listings.each do |listing|
           - listing.reservations.each do |reservation|
             %panel-body
-              .row-table
+              .row-table.table-bordered
                 .col-sm-4.col-lg-4.col-middle.row-space-4
                   %span.listing-title= listing.listing_title
                 .col-md-3.col-sm-3.col-xs-3.col-middle.row-space-3

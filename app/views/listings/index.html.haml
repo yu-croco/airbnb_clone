@@ -5,16 +5,16 @@
       .panel-heading
         .text-center
           %span.title-size-normal リスティング一覧
-      %ul.ul-unstyled
+      %ul-unstyled
         - if @listings.empty?
           .text-center
             %p リスティングはありません。
             = link_to "ホストになる", new_listing_path, class: "btn btn-success"
         - else
           - @listings.each do |listing|
-            %li.panel-body
-              .row-table
-                .col-md-3.col-sm-3.col-middle.row-space-2
+            %panel-body
+              .row-table.table-bordered
+                .col-md-3.col-sm-3.col-middle.row-space-3
                   .panel-list-img.text-center
                     = image_tag listing.photos[0].image.url(:medium) if listing.photos.length > 0
                 .col-sm-7.col-lg-7.col-middle.row-space-2
