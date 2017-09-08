@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
 
 	def index
-		@reservations = current_user.reservations
+		@reservations = current_user.reservations.includes(:listing)
 	end
 
 	def create

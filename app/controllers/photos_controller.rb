@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+	before_action :authenticate_user!
 
 	def new
 		@photo = Photo.new
@@ -6,11 +7,9 @@ class PhotosController < ApplicationController
 
 	def create
 		if @photo.save
-			render json: { message: "success", photoId: @photo.id },
-				status: 200
+			notice: "写真のアップロードが完了しました。"
 		else
-			render json: { error: @photo.errors.full_messages.join(", ") },
-				status: 400
+			notice: "写真のアップロードに失敗しました。"
 		end
 	end
 
