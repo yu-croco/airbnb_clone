@@ -33,7 +33,7 @@
         .col-md-3.text-center.row-space-2
           = link_to user_path(@listing.user) do
             = image_tag @listing.user.image, class:"img-circle profile-2" unless @listing.user.image.nil?
-          %h5= @listing.user.name
+          %h5= @listing.user.email.split("@")[0]
         .col-md-6
           .listing-title
             = @listing.listing_title
@@ -102,5 +102,5 @@
   		radius: 500
   	});
   }
-%script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCSOxMnIVJxZQQ-aeHTJDJdLQs084hgTgM&callback=initMap"}
+%script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key= #{Rails.application.secrets.GOOGLE_MAPS_KEY} &callback=initMap"}
   :cdata

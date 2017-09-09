@@ -1,0 +1,12 @@
+= render 'partials/navbar'
+.container
+  .col-md-9
+    .panel.panel-default
+      .panel-heading
+        .text-center
+          %span.title-size-normal 受取口座情報の編集
+      .panel-body
+        - if @user.connected?
+          = render 'stripe/setting'
+        - else
+          = render 'stripe/connect'

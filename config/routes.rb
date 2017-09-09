@@ -18,9 +18,18 @@ Rails.application.routes.draw do
 			end
 	end
 
+	resources :listings do
+		resources :bank_accounts, only: [ :index, :new, :create, :destroy], shallow: true
+	end
+
 	resources :users, only: [:show]
 
 	get '/reservations', to: 'reservations#index'
 	get '/guest-reservations', to: 'guest_reservations#index'
+
+	#stripe connect oauth path
+	get '/connect/oauth' => 'stripe#index', as: 'stripe_oauth'
+	get '/connect/confirm' => 'stripe#create', as: 'stripe_confirm'
+	get '/connect/deauthorize' => 'stripe#destroy', as: 'stripe_deauthorize'
 
 end
