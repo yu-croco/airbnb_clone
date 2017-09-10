@@ -21,14 +21,15 @@
             認証済みID
           .panel-body
             #ver-email
-              メールアドレス
+              %p 【メールアドレス】
+              %p #{@user.email}
             %br/
             #ver-tel
-              電話番号
-            %br/
-            #ver-facebook
-              Facebook
+              %P 【電話番号】
+              %p #{@user.phone_number}
         = link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-success btn-full"
+        .height-small
+        = link_to "口座情報登録", user_bank_accounts_path(@user), class: "btn btn-primary btn-full"
     .col-lg-9.col-md-8.col-sm-12
       %h1 自己紹介
       = @user.description

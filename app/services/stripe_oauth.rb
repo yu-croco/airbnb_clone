@@ -41,7 +41,6 @@ class StripeOauth < Struct.new(:user)
 				# Stripe API is broken?...
 				else
 					return [nil, params[:error_description]]
-
 				end
 			end
 
@@ -69,6 +68,9 @@ class StripeOauth < Struct.new(:user)
 
 		# store data on User model
 		user.stripe_user_id = data.params['stripe_user_id']
+	    user.publishable_key = data.params['stripe_publishable_key']
+	    user.secret_key = data.token
+	    user.currency = default_currency
 
 		user.save!
 	end
@@ -94,10 +96,21 @@ class StripeOauth < Struct.new(:user)
 	# Used here in #deauthorize! as well as in the webhook handler:
 	# app/controllers/hooks_controller.rb#stripe
 	def deauthorized
-		user.update_attributes(stripe_user_id: nil)
+		user.update_attributes(
+			stripe_user_id: nil,
+			publishable_key: nil,
+			secret_key: nil,
+			currency: nil
+		)
 	end
 
 	private
+		# Get the default currency of the connected user.
+		# All transactions will use this currency.
+		def default_currency
+			Stripe::Account.retrieve( user.stripe_user_id, user.secret_key ).default_currency
+		end
+
 		# A simple OAuth2 client we can use to generate a URL
 		# to redirect the user to as well as get an access token.
 		# Used in #oauth_url and #verify!

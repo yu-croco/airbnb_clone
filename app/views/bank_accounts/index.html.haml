@@ -1,12 +1,13 @@
 = render 'partials/navbar'
 .container
-  .col-md-9
-    .panel.panel-default
-      .panel-heading
-        .text-center
-          %span.title-size-normal 受取口座情報の編集
-      .panel-body
-        - if @user.connected?
-          = render 'stripe/setting'
-        - else
-          = render 'stripe/connect'
+  .row
+    .col-md-3.row-space-4
+      = link_to "プロフィールに戻る", user_path(current_user), class: "btn btn-success btn-full"
+    .col-md-9
+      .panel.panel-defaule
+        %h2.panel-heading 口座情報登録
+        .panel-body
+          - if @user.connected?
+            = render 'stripe/connected'
+          - else
+            = render 'stripe/not_yet_connected'

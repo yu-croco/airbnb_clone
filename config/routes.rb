@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'guest_reservation_controller/index'
+	get 'guest_reservation_controller/index'
 
 	root to: 'static_pages#index'
 
@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 			registrations: 'registrations' }
 
 	resources :listings do
-		resources :reservations, only: [:create]
+		resources :reservations, only: [:new, :create]
 	end
 
 	resources :listings do
@@ -18,8 +18,8 @@ Rails.application.routes.draw do
 			end
 	end
 
-	resources :listings do
-		resources :bank_accounts, only: [ :index, :new, :create, :destroy], shallow: true
+	resources :users do
+		resources :bank_accounts, only: [:index, :new], shallow: true
 	end
 
 	resources :users, only: [:show]
