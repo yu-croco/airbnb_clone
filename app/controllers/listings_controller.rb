@@ -2,7 +2,7 @@ class ListingsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :set_listing, only: [:update, :edit, :destroy]
 	before_action :is_own_listing?, only: [:update, :edit, :destroy]
-	before_action :check_listing_existence, only: [:index, :show]
+	before_action :check_listing_existence, only: [:show]
 
 	def index
 		@listings = current_user.listings.includes(:photos)
