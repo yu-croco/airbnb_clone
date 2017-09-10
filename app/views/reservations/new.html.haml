@@ -1,0 +1,56 @@
+= render 'partials/navbar'
+.container
+  / listing content
+  .col-md-8.col-md-offset-2
+    .thumbnail
+      - if @listing.photos.empty?
+        = image_tag 'house-default.png'
+      - else
+        = image_tag @listing.photos[0].image.url()
+
+      = image_tag @listing.user.image,class:"img-circle profile-1 row-space-top-3"
+      .caption
+        %h4.text-center.row-space-4
+          ホスト名: #{@listing.user.name}
+        %h4.text-center.row-space-4
+          リスティングタイトル:#{@listing.listing_title}
+        %h4.text-center.row-space-4
+          合計金額:#{@total_price}円
+        .row.text-center
+          .col-md-5.col-sm-5.col-xs-5
+            %p チェックイン
+            %p= @start_date
+          .col-md-2.col-sm-2.col-xs-2.row-space-top-1
+            %i.fa.fa-chevron-right.fa-2x{"aria-hidden" => "true"}
+          .col-md-5.col-sm-5.col-xs-5
+            %p チェックアウト
+            %p= @end_date
+
+        / Stripe order and credit form
+        / Send to reservations#create action
+        = simple_form_for([@listing, @listing.reservations.new]) do |f|
+          = hidden_field_tag :token
+
+          = f.input :start_date, as: :hidden, input_html: {value: @start_date}
+          = f.input :end_date, as: :hidden, input_html: {value: @end_date}
+          = f.input :listing_id, as: :hidden, input_html: {value: @listing.id}
+          = f.input :price_pernight, as: :hidden, input_html: {value: @listing.price_pernight}
+          = f.input :total_price, as: :hidden, input_html: {value: @total_price}
+          .indicator
+          .row
+            .text-center
+              %button.btn.btn-danger.btn-wide.pay-button
+                = @total_price
+                円を支払って予約を完了する
+
+%script{:src => "https://checkout.stripe.com/checkout.js"}
+
+/ You can select to pay either directly or via the platform, so
+/ we need both publishable keys here.
+:javascript
+  window.publishable = {
+    platform: "#{Rails.configuration.stripe[:stripe_publishable_key]}"
+  };
+  window.currentUserEmail = "#{current_user.email}";
+
+  window.totalPrice = "#{@total_price}";

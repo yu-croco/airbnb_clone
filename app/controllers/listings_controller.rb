@@ -1,14 +1,15 @@
 class ListingsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :set_listing, only: [ :update, :edit, :destroy ]
-	before_action :is_own_listing?, only: [ :update, :edit, :destroy ]
+	before_action :set_listing, only: [:update, :edit, :destroy]
+	before_action :is_own_listing?, only: [:update, :edit, :destroy]
+	before_action :check_listing_existence, only: [:index, :show]
 
 	def index
 		@listings = current_user.listings.includes(:photos)
 	end
 
 	def show
-		@listing = Listing.find(params[:id])
+		@listing = Listing.find_by(params[:listing_id])
 		@photos = @listing.photos
 	end
 
@@ -58,7 +59,15 @@ class ListingsController < ApplicationController
 		end
 
 		def is_own_listing?
-			unless current_user.listings.include?(@listing)
+			listing = Listing.find_by(params[:id])
+			unless current_user.listings.include?(listing)
+				redirect_to root_path, alert: "閲覧権限がありません。"
+			end
+		end
+
+		def check_listing_existence
+			@listing = Listing.find_by(id: params[:id])
+			if @listing.nil?
 				redirect_to root_path, alert: "リスティング情報は見つかりませんでした。"
 			end
 		end

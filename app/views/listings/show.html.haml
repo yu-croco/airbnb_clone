@@ -56,7 +56,7 @@
                 = @listing.price_pernight
                 円（一晩あたり）
             .panel-body.panel-real
-              = simple_form_for [@listing, @listing.reservations.new] do |f|
+              = simple_form_for [@listing, @listing.reservations.new], url: new_listing_reservation_path(@listing), html: {method: "get"} do |f|
                 = f.input :listing_id, as: :hidden
                 .row.row-space-2
                   .col-md-6

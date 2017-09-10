@@ -1,7 +1,8 @@
 %ul.list-group
   %li#stripe-oauth.list-group-item
     / Call stripe controller's oauth action
-    %p 下のボタンをクリックした後、情報を入力することで銀行口座を登録できます。
+    %p 口座情報が未登録済みです。
+    %p 下のボタンをクリックして銀行口座を登録してください。
     = link_to stripe_oauth_path do
       .stripe-img
         = image_tag "blue-on-light.png"

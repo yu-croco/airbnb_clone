@@ -7,12 +7,12 @@ class StripeController < ApplicationController
 	# Only works on the currently logged in user.
 	# See app/services/stripe_oauth.rb for #oauth_url details.
 	def index
-		connector = StripeOauth.new( current_user )
+		connector = StripeOauth.new(current_user)
 		url, error = connector.oauth_url(redirect_uri: stripe_confirm_url)
 
 		if url.nil?
 			flash[:error] = error
-			redirect_to listing_bank_accounts_path(session[:listing_id])
+			redirect_to user_bank_accounts_path(session[:id])
 		else
 			redirect_to url
 		end
@@ -24,10 +24,7 @@ class StripeController < ApplicationController
 	def create
 		connector = StripeOauth.new(current_user)
 		if params[:code]
-			# If we got a 'code' parameter. Then the
-			# connection was completed by the user.
-			connector.verify!( params[:code] )
-
+			connector.verify!(params[:code])
 		elsif params[:error]
 			# If we have an 'error' parameter, it's because the
 			# user denied the connection request. Other errors
@@ -35,16 +32,15 @@ class StripeController < ApplicationController
 			flash[:error] = "Authorization request denied."
 		end
 
-		redirect_to listing_bank_accounts_path(session[:listing_id]),
-			notice: "受取口座情報を登録しました。"
+		redirect_to user_bank_accounts_path(session[:id]),
+			notice: "口座情報を登録しました。"
 	end
 
-	# deauthorize
+	# deauthorize bank account
 	def destroy
 		connector = StripeOauth.new(current_user)
 		connector.deauthorize!
-		redirect_to listing_bank_accounts_path(session[:listing_id]),
-			notice: "受取口座情報を削除しました。"
+		redirect_to user_bank_accounts_path(session[:id]),
+			notice: "口座情報を削除しました。"
 	end
-
 end

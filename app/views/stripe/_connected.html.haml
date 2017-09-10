@@ -1,0 +1,5 @@
+.panel.panel-primary
+  .panel-body
+    %p 口座情報が登録済みです。
+    %p 口座情報を変更する場合は、下のボタンから登録情報を削除した上で再度登録してください。
+    = link_to "口座情報を削除する",stripe_deauthorize_path, class:"btn btn-info"
