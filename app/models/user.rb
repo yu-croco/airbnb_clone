@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 	has_many :listings, dependent: :destroy
 	has_many :reservations, dependent: :destroy
 
+	validates :email, presence: true, uniqueness: true
+
 	# facebook omniauth
 	def self.from_omniauth(auth)
 		where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

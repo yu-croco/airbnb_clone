@@ -17,19 +17,19 @@
   .row
     .col-md-12
       .form-group
-        = f.input :address, label: "住所", class: "form-control", hint: "例: 東京都港区六本木6丁目11-1"
+        = f.input :address, label: "住所", required: true, class: "form-control", hint: "例: 東京都港区六本木6丁目11-1"
 
   %br
   .row
     .col-md-12
       .form-group
-        = f.input :listing_title, label: "タイトル",  class: "form-control"
+        = f.input :listing_title, label: "タイトル", required: true, class: "form-control"
 
   %br
   .row
     .col-md-12
       .form-group
-        = f.input :listing_content, label: "内容", as: :text, class: "form-control"
+        = f.input :listing_content, label: "内容", required: true, as: :text, class: "form-control"
 
   %br
   .row
