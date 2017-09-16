@@ -9,7 +9,6 @@ class ListingsController < ApplicationController
 	end
 
 	def show
-		@listing = Listing.find_by(params[:listing_id])
 		@photos = @listing.photos
 	end
 
@@ -59,8 +58,8 @@ class ListingsController < ApplicationController
 		end
 
 		def is_own_listing?
-			listing = Listing.find_by(params[:id])
-			unless current_user.listings.include?(listing)
+			@listing = Listing.find_by(id: params[:id])
+			unless current_user.listings.include?(@listing)
 				redirect_to root_path, alert: "閲覧権限がありません。"
 			end
 		end
