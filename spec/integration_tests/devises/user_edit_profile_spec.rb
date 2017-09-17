@@ -9,7 +9,7 @@ describe 'edit user profile' do
 		fill_in 'user[email]', with: user.email
 		fill_in 'user[password]', with: user.password
 		click_button "login"
-		expect(page).to have_content 'Signed in successfully.'
+		expect(page).to have_http_status :success
 		# edit profile
 		visit edit_user_registration_path
 		fill_in "user[email]", with: 'fugafuga@example.com'

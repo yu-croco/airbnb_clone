@@ -8,6 +8,5 @@ describe 'sign up with devise' do
 		fill_in 'user[password_confirmation]', with: 'piyohogefuga'
 		click_button "アカウント作成"
 		expect(page).to have_http_status :success
-		expect(page).to have_content 'You have signed up successfully.'
 	end
 end

@@ -4,7 +4,7 @@ module BasicUserActions
 		fill_in 'user[email]', with: user.email
 		fill_in 'user[password]', with: user.password
 		click_button "login"
-		expect(page).to have_content 'Signed in successfully.'
+		expect(page).to have_http_status :success
 	end
 
 	def create_listing
