@@ -60,9 +60,9 @@
                 = f.input :listing_id, as: :hidden
                 .row.row-space-2
                   .col-md-6
-                    = f.input :start_date, label: "チェックイン", as: :string, placeholder: "開始日", class: "form-control"
+                    = f.input :start_date, label: "チェックイン", as: :string, placeholder: "開始日", class: "form-control", id: "reservation_start_date"
                   .col-md-6
-                    = f.input :end_date, label: "チェックアウト", as: :string, placeholder: "終了日", class: "form-control"
+                    = f.input :end_date, label: "チェックアウト", as: :string, placeholder: "終了日", class: "form-control", id: "reservation_end_date"
                 .actions.text-center
                   = f.button :submit, "この日程で予約する", class: "btn btn-primary btn-wide"
 / main content
