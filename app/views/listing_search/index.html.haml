@@ -1,14 +1,14 @@
 = render 'partials/navbar'
 .col-md-6
   %div
-    = text_field_tag :search, params[:search], placeholder: "Where are you going?", class: "form-control",id:"pac-input"
+    = text_field_tag :search, params[:search], placeholder: "宿泊する場所を入力してください。", class: "form-control",id:"pac-input"
 .col-md-6
   #map.google-maps
     / google maps api
     %script
       // show selected area on map
       function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {
+      map = new google.maps.Map(document.getElementById('map'), {
       center: {lat:#{@latitude}, lng: #{@longitude}},
       zoom: 13
       });
@@ -40,5 +40,61 @@
           infowindow.open(map, this);
           infowindows.push(infowindow);
           });
+
+      var infowindow = new google.maps.InfoWindow();
+      var marker = new google.maps.Marker({
+      map: map,
+      anchorPoint: new google.maps.Point(0, -29)
+      });
+
+      autocomplete.addListener('place_changed', function() {
+      infowindow.close();
+      marker.setVisible(false);
+
+      // delete all infowindow
+      infowindows.forEach(function(infowindow) {
+      infowindow.close();
+      });
+      infowindows = [];
+
+      // delete all marker
+      markers.forEach(function(marker) {
+      marker.setVisible(false);
+      });
+      markers = [];
+
+      var place = autocomplete.getPlace();
+      if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+      }
+
+      // If the place has a geometry, then present it on a map.
+      if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+      map.setZoom(13);
+      } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(13);
+      }
+
+      // get geolocation on search field
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      var geolocation = [lat, lng];
+
+      var location = place.formatted_address;
+
+      // record history when autocomplete form is changed
+      url = "/listing-search?utf8=✓&search=" + place.formatted_address;
+
+      window.history.pushState(null, null, url);
+
+      $.ajax({
+      url: '/ajax-searches',
+      // this data is data for sending to url
+      data: { 'geolocation': geolocation, 'location': location}
+      });
+      });
       }
   %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.secrets.GOOGLE_MAPS_KEY}&signed_in=true&libraries=places&callback=initMap"}

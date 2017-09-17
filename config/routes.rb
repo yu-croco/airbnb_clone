@@ -35,4 +35,6 @@ Rails.application.routes.draw do
 	# lsting search
 	get '/listing-search', to: 'listing_search#index'
 
+	get '/ajax-searches', to: 'ajax_searches#index'
+
 end

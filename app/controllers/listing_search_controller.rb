@@ -3,7 +3,8 @@ class ListingSearchController < ApplicationController
 		set_geolocation_by_params(params[:lat], params[:lng])
 		set_listings_by_geolocation(@latitude, @longitude)
 		if @listings.present?
-			set_stay_duration(params[:start_date], params[:end_date])
+			set_date_as_session(params[:start_date], params[:end_date])
+			set_stay_duration(session[:start_date], session[:end_date])
 			delete_reserved_listings(@start_date, @end_date, @listings)
 		end
 	end
@@ -28,9 +29,14 @@ class ListingSearchController < ApplicationController
 				.near([latitude, longitude], 1, order: 'distance').includes(:photos)
 		end
 
+		def set_date_as_session(start_date, end_date)
+			session[:start_date] = start_date
+			session[:end_date] = end_date
+		end
+
 		def set_stay_duration(start_date, end_date)
-			@start_date = Date.parse(params[:start_date])
-			@end_date = Date.parse(params[:end_date])
+			@start_date = Date.parse(start_date)
+			@end_date = Date.parse(end_date)
 		end
 
 		def delete_reserved_listings(start_date, end_date, listings)
@@ -47,4 +53,5 @@ class ListingSearchController < ApplicationController
 				@all_listings.delete(listing) if unavailable.length > 0
 			end
 		end
+
 end
