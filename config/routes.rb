@@ -32,4 +32,7 @@ Rails.application.routes.draw do
 	get '/connect/confirm' => 'stripe#create', as: 'stripe_confirm'
 	get '/connect/deauthorize' => 'stripe#destroy', as: 'stripe_deauthorize'
 
+	# lsting search
+	get '/listing-search', to: 'listing_search#index'
+
 end
