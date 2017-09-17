@@ -1,6 +1,5 @@
 class ListingSearchController < ApplicationController
 	def index
-		binding.pry
 		set_geolocation_by_params(params[:lat], params[:lng])
 		set_listings_by_geolocation(@latitude, @longitude)
 		if @listings.present?
