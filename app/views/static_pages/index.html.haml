@@ -1,13 +1,90 @@
 :javascript
   $(function() {
-  	$(".navbar").removeClass("navbar-devise");
-  	$(".navbar").addClass("navbar-default");
+    $(".navbar").removeClass("navbar-devise");
+    $(".navbar").addClass("navbar-default");
   });
+
 .jumbotron
   = render 'partials/navbar'
   .container
     .row
       .col-md-6.col-md-offset-3.text-center
         %h1.display-3 Hello, world!
-%h1 StaticPages#index
-%p Find me in app/views/static_pages/index.html.erb
+
+  / Search Form
+  .top-search-field
+    = form_tag listing_search_path, method: :get do
+      .row
+        .container
+          = hidden_field_tag :lat
+          = hidden_field_tag :lng
+
+          .col-md-7.col-xs-10.where-to-stay
+            = text_field_tag :search, params[:search], placeholder: "希望の場所はどこですか？", required: true, class: "form-control", id: "top-search-form"
+          .col-md-2.hidden-xs.hidden-sm
+            = text_field_tag :start_date, params[:start_date], placeholder: "チェックイン", required: true, class: "form-control", id: "reservation_start_date"
+          .col-md-2.hidden-xs.hidden-sm
+            = text_field_tag :end_date, params[:end_date], placeholder: "チェックアウト", required: true, class: "form-control", id: "reservation_end_date"
+          .col-md-1.col-xs-2.earch-item
+            = submit_tag "検索", class: "btn btn-danger"
+
+.container
+  / service instruction
+  %section#services
+    .container
+      .row.row-space-4
+        .col-lg-12.text-center
+          %h2.section-heading ご利用の流れ
+          %h3.section-subheading airbonのクローンサイトであり、宿泊施設と宿泊者のマッチングサービスです
+      .row.text-center
+        .col-md-4
+          = image_tag 'search-icon'
+          %h4.service-heading 探す
+          %p.text-muted.hidden-xs 宿泊したい施設を探しましょう。
+        .col-md-4
+          = image_tag 'calendar-icon'
+          %h4.service-heading 予約する
+          %p.text-muted.hidden-xs いいなと思う宿泊施設があったら、滞在日を予約しましょう。
+        .col-md-4
+          = image_tag 'home-icon'
+          %h4.service-heading 宿泊する
+          %p.text-muted.hidden-xs 宿泊先に泊まりましょう。
+
+  / show listings created within a month
+  %section#portfolio.bg-light-gray.row-space-top-4.row-space-4
+    .container
+      .row.row-space-2
+        .col-lg-12.text-center
+          %h3.section-heading 最新の宿泊先情報
+      .row
+        - @listings.each do |listing|
+          - if listing.present? && listing.photos.present?
+            .col-md-4.col-sm-6.portfolio-item.row-space-2
+              = link_to listing_path(listing.id) do
+                = image_tag listing.photos[0].image.url(:medium)
+                %h4
+                  = listing.listing_title
+
+  = render 'static_pages/footer'
+
+:javascript
+  // google maps api
+  function init() {
+    var input = (document.getElementById('top-search-form'));
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+
+      document.getElementById('lat').value = lat;
+      document.getElementById('lng').value = lng;
+
+      if (!place.geometry) {
+        window.alert("Autocomplete's returned place contains no geometry");
+        return;
+      }
+    });
+  }
+%script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.secrets.GOOGLE_MAPS_KEY}&signed_in=true&libraries=places&callback=init"}
