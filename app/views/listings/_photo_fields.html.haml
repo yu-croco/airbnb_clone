@@ -2,6 +2,6 @@
   .dz-message.needsclick
   .fallback
   = f.input :listing_id, as: :hidden, input_html: { value: @listing.id }
-  = f.input :image, as: :file, label: "リスティング写真"
+  = f.input :image, as: :file, label: "写真"
   %br
   = link_to_remove_association '写真を削除する', f
