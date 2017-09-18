@@ -50,7 +50,7 @@
         = f.fields_for :photos, html:{multipart: true, class:"dropzone", id:"my-dropzone" } do |photo|
           = render 'photo_fields', f: photo
         .links
-          = link_to_add_association "リスティングを追加", f, :photos
+          = link_to_add_association "写真を追加", f, :photos
   %br
   .actions
     = f.button :submit, "保存", class: "btn btn-primary"
