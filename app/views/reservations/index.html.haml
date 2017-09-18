@@ -9,8 +9,7 @@
         - if @reservations.empty?
           .text-center
             %p 予約済みの宿泊先はありません。
-            / # ToDo: need to add pat
-            = link_to "宿泊先を予約する", ' ', class: "btn btn-success"
+            = link_to "宿泊先を探す", root_path, class: "btn btn-success"
         - else
           - @reservations.each do |reservation|
             %panel-body
