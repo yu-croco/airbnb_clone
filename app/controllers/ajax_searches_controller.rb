@@ -32,7 +32,7 @@ class AjaxSearchesController < ApplicationController
 					start_date, end_date,
 					start_date, end_date
 				).limit(1)
-				@all_listings.delete(listing) if unavailable.length > 0
+				@all_listings.delete(listing) if unavailable.present?
 			end
 		end
 end
