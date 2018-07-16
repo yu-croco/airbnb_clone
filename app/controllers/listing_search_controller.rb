@@ -25,8 +25,7 @@ class ListingSearchController < ApplicationController
 		end
 
 		def set_listings_by_geolocation(latitude, longitude)
-			@listings = Listing.where(active: true)
-				.near([latitude, longitude], 1, order: 'distance').includes(:photos)
+			@listings = Listing.set_active_listings_by_geolocation(latitude, longitude)
 		end
 
 		def set_date_as_session(start_date, end_date)
@@ -42,16 +41,13 @@ class ListingSearchController < ApplicationController
 		def delete_reserved_listings(start_date, end_date, listings)
 			@all_listings = listings.to_a
 			listings.each do |listing|
-				unavailable = listing.reservations.where(
-					"(? <= start_date AND start_date <= ?)
-					 OR (? <= end_date AND end_date <= ?)
-					 OR (start_date < ? AND ? < end_date)",
-					start_date, end_date,
-					start_date, end_date,
-					start_date, end_date
-				).limit(1)
-				@all_listings.delete(listing) if unavailable.present?
+				if listing.reservations.reserved_listing?(start_date, end_date)
+					@all_listings.delete(listing)
+				end
 			end
+		end
+
+		def reserved_listing?(listing, start_date, end_date)
 		end
 
 end

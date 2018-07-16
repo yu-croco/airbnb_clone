@@ -22,4 +22,14 @@ class Listing < ActiveRecord::Base
 	enumerize :house_type, in: %w(house mansion apartment other), default: :house
 	enumerize :house_size, in: %w(single double triple quadruple), default: :single
 	enumerize :active, in: { public: "true" , private: "false"}, default: :private
+
+	def self.active_listing_near_geolocation(geolocation)
+		self.where(active: true).near(geolocation, 1, order: 'distance')
+			.includes(:photos)
+	end
+
+	def self.set_active_listings_by_geolocation(latitude, longitude)
+		self.where(active: true).near([latitude, longitude], 1, order: 'distance')
+			.includes(:photos)
+	end
 end
