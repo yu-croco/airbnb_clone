@@ -1,0 +1,34 @@
+version: "3"
+services:
+  db:
+    image: postgres:10
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/ruby/Dockerfile
+    container_name: web
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+    links:
+      - db
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
+    command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+volumes:
+  db-data:
+    driver: local
