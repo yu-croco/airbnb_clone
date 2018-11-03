@@ -18,15 +18,13 @@ class ReservationsController < ApplicationController
 		amount = params[:reservation][:total_price].to_i
 
 		begin
-			charge_reservation(amount, params[:token], user.currency,
-					user.stripe_user_id)
-		rescue Stripe::CardError => e
+			charge_reservation(amount, params[:token], user.currency, user.stripe_user_id)
+      @reservation = current_user.reservations.create(reservation_params)
+      redirect_to @reservation.listing, notice: "予約が完了しました。"
+    rescue Stripe::CardError => e
 			error = e.json_body[:error][:message]
 			flash[:error] = "Charge failed! #{error}"
 		end
-
-		@reservation = current_user.reservations.create(reservation_params)
-		redirect_to @reservation.listing, notice: "予約が完了しました。"
 	end
 
 	private

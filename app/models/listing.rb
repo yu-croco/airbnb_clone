@@ -16,7 +16,9 @@ class Listing < ActiveRecord::Base
 	validates :active, presence: true
 
 	geocoded_by :address
-	after_validation :geocode, if: :address_changed?
+  after_validation :geocode, if: :address_changed?
+
+  scope :active, -> { where(active: true) }
 
 	extend Enumerize
 	enumerize :house_type, in: %w(house mansion apartment other), default: :house
@@ -24,12 +26,18 @@ class Listing < ActiveRecord::Base
 	enumerize :active, in: { public: "true" , private: "false"}, default: :private
 
 	def self.active_listing_near_geolocation(geolocation)
-		self.where(active: true).near(geolocation, 1, order: 'distance')
+		active.near(geolocation, 1, order: 'distance')
 			.includes(:photos)
 	end
 
 	def self.set_active_listings_by_geolocation(latitude, longitude)
-		self.where(active: true).near([latitude, longitude], 1, order: 'distance')
+		active.near([latitude, longitude], 1, order: 'distance')
 			.includes(:photos)
-	end
+  end
+
+  def delete_reserved_listings(start_date, end_date, all_listings)
+    if reservations.reserved_listing?(start_date, end_date)
+      all_listings.delete(self)
+    end
+  end
 end

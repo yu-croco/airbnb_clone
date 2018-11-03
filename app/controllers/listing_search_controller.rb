@@ -40,14 +40,8 @@ class ListingSearchController < ApplicationController
 
 		def delete_reserved_listings(start_date, end_date, listings)
 			@all_listings = listings.to_a
-			listings.each do |listing|
-				if listing.reservations.reserved_listing?(start_date, end_date)
-					@all_listings.delete(listing)
-				end
+      listings.includes(:reservations).each do |listing|
+        listing.delete_reserved_listings(start_date, end_date, @all_listings)
 			end
-		end
-
-		def reserved_listing?(listing, start_date, end_date)
-		end
-
+    end
 end

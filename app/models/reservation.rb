@@ -6,7 +6,7 @@ class Reservation < ApplicationRecord
 	validates :end_date, presence: true
 
 	def self.reserved_listing?(start_date, end_date)
-		self.where(
+		where(
 			"(? <= start_date AND start_date <= ?)
 			 OR (? <= end_date AND end_date <= ?)
 			 OR (start_date < ? AND ? < end_date)",
