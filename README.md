@@ -10,6 +10,15 @@ This application is a clone application of Airbnb for learning Ruby on Rails.
 6. License
 ```
 
+## 0. Purpose of this application
+- To learn how to build a morden web application with Rails
+  - Login/Logout
+    - devise gem
+    - SNS connection
+  - Purchase/Reservation
+  - Payment
+    - access to Stripe
+  - Google Map
 
 ## 1. Features
 This application has basic and simple feature for publishing listings and booking them.
@@ -53,7 +62,7 @@ There are 4 models in this application.
 ## 3. Technologies
 ```
 [SERVER-SIDE]
-- Ruby：v2.4.1
+- Ruby：v2.5.0
 - Ruby on Rails：v5.0.3
 
 [FRONT-END]
@@ -61,9 +70,6 @@ There are 4 models in this application.
 - CSS
 - JavaScript
 - bootstrap
-
-[INFRASTRUCTURE]
-- heroku v6.14.4
 
 [main gems]
 - devise
@@ -82,11 +88,22 @@ There are 4 models in this application.
 
 ## 4. Installation
 Run commands below on your local environment.
+
+```
 1. git clone https://github.com/yu-croco/airbnb_clone.git
 2. cd ~/airbnb_clone
 3. bundle install bundle install --without production
 4. rails s
+```
 
+or use docker after cloning this repository.
+
+```
+1. cd ~/airbnb_clone
+2. docker-compose build
+3. docker-compose up -d
+4. access to http://localhost:3000
+```
 
 ## 5. ToDo
 - Message feature
